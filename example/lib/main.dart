@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:lcd_led/lcd_led.dart';
 
@@ -15,7 +16,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  var n = 50;
+  var n = 'N';
 
   @override
   void initState() {
@@ -23,7 +24,8 @@ class _MainAppState extends State<MainApp> {
     Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (context.mounted) {
         setState(() {
-          n--;
+          var now = DateTime.now();
+          n = '-${DateFormat('kk:mm:ss').format(now)}.${now.millisecond~/100}';
         });
       }
     });
@@ -37,12 +39,12 @@ class _MainAppState extends State<MainApp> {
       home: Scaffold(
         body: Center(
           child: SizedBox(
-            width: 400,
-            height: 100,
+            width: 500,
+            height: 70,
             child: LedDigits(
-              number: n,
-              numberOfDigits: 5,
-              spacing: 20,
+              string: n,
+              numberOfLeds: 11,
+              spacing: 5,
             ),
           ),
         ),

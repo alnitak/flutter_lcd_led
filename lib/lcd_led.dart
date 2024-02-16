@@ -1,7 +1,6 @@
 library lcd_led;
 
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -9,17 +8,17 @@ import 'package:flutter/material.dart';
 class LedDigits extends StatelessWidget {
   const LedDigits({
     super.key,
-    required this.number,
-    required this.numberOfDigits,
+    required this.string,
+    required this.numberOfLeds,
     this.spacing = 10,
     this.backgroundColor = Colors.black,
-    this.offColor = const Color.fromARGB(255, 49, 49, 49),
+    this.offColor = const Color.fromARGB(255, 35, 35, 35),
     this.onColor = Colors.red,
   });
 
-  final int number;
+  final String string;
 
-  final int numberOfDigits;
+  final int numberOfLeds;
 
   final double spacing;
 
@@ -29,13 +28,14 @@ class LedDigits extends StatelessWidget {
 
   final Color onColor;
 
-  List<Widget> getDigits(int number, BoxConstraints constraints) {
+  List<Widget> getDigits(BoxConstraints constraints) {
     List<Widget> digits = [];
     // 'N' means leds off
-    String numberString = number.toString().padLeft(numberOfDigits, 'N');
-    for (int i = 0; i < numberOfDigits; i++) {
+    String numberString = string.padLeft(numberOfLeds, 'N');
+    for (int i = 0; i < numberOfLeds; i++) {
       double w =
-          (constraints.maxWidth - spacing * (numberOfDigits - 1)) / numberOfDigits;
+          (constraints.maxWidth - spacing * (numberOfLeds - 1)) / numberOfLeds;
+      if (w < 0) w = 0;
       digits.add(
         SizedBox(
           width: w,
@@ -48,7 +48,7 @@ class LedDigits extends StatelessWidget {
           ),
         ),
       );
-      if (i < numberOfDigits - 1) {
+      if (i < numberOfLeds - 1) {
         digits.add(
           SizedBox(width: spacing),
         );
@@ -64,7 +64,7 @@ class LedDigits extends StatelessWidget {
         color: backgroundColor,
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: getDigits(number, constraints),
+          children: getDigits(constraints),
         ),
       );
     });
@@ -132,38 +132,44 @@ class _LedDigitState extends State<LedDigit>
   Widget build(BuildContext context) {
     //       0
     //     ----
-    //   1|    |2
+    //   1|    |2      o  8
     //    |  3 |
     //     ----
-    //   4|    |5
+    //   4|    |5      o  8
     //    |    |
-    //     ----
+    //     ---- °7
     //       6
     switch (widget.digit) {
-      case '0': ///////////////// 0  1  2  3  4  5  6
-        lcd = Uint8List.fromList([1, 1, 1, 0, 1, 1, 1]);
+      case '0': ///////////////// 0  1  2  3  4  5  6  7  8
+        lcd = Uint8List.fromList([1, 1, 1, 0, 1, 1, 1, 0, 0]);
       case '1':
-        lcd = Uint8List.fromList([0, 0, 1, 0, 0, 1, 0]);
+        lcd = Uint8List.fromList([0, 0, 1, 0, 0, 1, 0, 0, 0]);
       case '2':
-        lcd = Uint8List.fromList([1, 0, 1, 1, 1, 0, 1]);
+        lcd = Uint8List.fromList([1, 0, 1, 1, 1, 0, 1, 0, 0]);
       case '3':
-        lcd = Uint8List.fromList([1, 0, 1, 1, 0, 1, 1]);
+        lcd = Uint8List.fromList([1, 0, 1, 1, 0, 1, 1, 0, 0]);
       case '4':
-        lcd = Uint8List.fromList([0, 1, 1, 1, 0, 1, 0]);
+        lcd = Uint8List.fromList([0, 1, 1, 1, 0, 1, 0, 0, 0]);
       case '5':
-        lcd = Uint8List.fromList([1, 1, 0, 1, 0, 1, 1]);
+        lcd = Uint8List.fromList([1, 1, 0, 1, 0, 1, 1, 0, 0]);
       case '6':
-        lcd = Uint8List.fromList([1, 1, 0, 1, 1, 1, 1]);
+        lcd = Uint8List.fromList([1, 1, 0, 1, 1, 1, 1, 0, 0]);
       case '7':
-        lcd = Uint8List.fromList([1, 0, 1, 0, 0, 1, 0]);
+        lcd = Uint8List.fromList([1, 0, 1, 0, 0, 1, 0, 0, 0]);
       case '8':
-        lcd = Uint8List.fromList([1, 1, 1, 1, 1, 1, 1]);
+        lcd = Uint8List.fromList([1, 1, 1, 1, 1, 1, 1, 0, 0]);
       case '9':
-        lcd = Uint8List.fromList([1, 1, 1, 1, 0, 1, 1]);
+        lcd = Uint8List.fromList([1, 1, 1, 1, 0, 1, 1, 0, 0]);
       case '-':
-        lcd = Uint8List.fromList([0, 0, 0, 1, 0, 0, 0]);
+        lcd = Uint8List.fromList([0, 0, 0, 1, 0, 0, 0, 0, 0]);
+      case '.':
+        lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 1, 0]);
+      case ':':
+        lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 1]);
       case 'N':
-        lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0]);
+
+        /// all LEDs off
+        lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }
 
     return RepaintBoundary(
@@ -171,7 +177,7 @@ class _LedDigitState extends State<LedDigit>
         child: CustomPaint(
           painter: _DigitPainter(
             lcd: lcd,
-            oldLcd: oldLcd ?? Uint8List.fromList([0, 0, 0, 0, 0, 0, 0]),
+            oldLcd: oldLcd ?? Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 0]),
             backgroundColor: widget.backgroundColor,
             offColor: widget.offColor,
             onColor: widget.onColor,
@@ -210,7 +216,10 @@ class _DigitPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final thickness = size.width * 0.2;
 
+    /// Paint background with the given color
     canvas.drawRect(Offset.zero & size, Paint()..color = backgroundColor);
+
+    /// Cycle every LEDs to build their path
     for (int i = 0; i < lcd.length; i++) {
       final paint = Paint()
         ..color = lcd[i] == 1
@@ -224,12 +233,12 @@ class _DigitPainter extends CustomPainter {
 
       //       0
       //     ----
-      //   1|    |2
+      //   1|    |2      o  8
       //    |  3 |
       //     ----
-      //   4|    |5
+      //   4|    |5      o  8
       //    |    |
-      //     ----
+      //     ---- °7
       //       6
       Path path = Path();
 
@@ -315,6 +324,29 @@ class _DigitPainter extends CustomPainter {
             ..lineTo(x1, y2)
             ..close();
           break;
+        case 7:
+          if (lcd[7] == 0) break;
+          final d = size.width * 0.3;
+          path.addOval(
+              Rect.fromLTWH(size.width - d * 1.1, size.height - d * 1.1, d, d));
+          break;
+        case 8:
+          if (lcd[8] == 0) break;
+          final d = size.width * 0.3;
+          path.addOval(
+            Rect.fromCenter(
+              center: Offset(size.width / 2, size.height / 4),
+              width: d,
+              height: d,
+            ),
+          );
+          path.addOval(
+            Rect.fromCenter(
+              center: Offset(size.width / 2, size.height * 0.75),
+              width: d,
+              height: d,
+            ),
+          );
       }
 
       canvas.drawPath(path, paint);
