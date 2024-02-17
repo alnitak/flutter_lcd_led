@@ -30,8 +30,8 @@ class LedDigits extends StatelessWidget {
 
   List<Widget> getDigits(BoxConstraints constraints) {
     List<Widget> digits = [];
-    // 'N' means leds off
-    String numberString = string.padLeft(numberOfLeds, 'N');
+    // ' ' means leds off
+    String numberString = string.padLeft(numberOfLeds, ' ');
     for (int i = 0; i < numberOfLeds; i++) {
       double w =
           (constraints.maxWidth - spacing * (numberOfLeds - 1)) / numberOfLeds;
@@ -166,8 +166,7 @@ class _LedDigitState extends State<LedDigit>
         lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 1, 0]);
       case ':':
         lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 1]);
-      case 'N':
-
+      case ' ':
         /// all LEDs off
         lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }
@@ -327,8 +326,11 @@ class _DigitPainter extends CustomPainter {
         case 7:
           if (lcd[7] == 0) break;
           final d = size.width * 0.3;
-          path.addOval(
-              Rect.fromLTWH(size.width - d * 1.1, size.height - d * 1.1, d, d));
+          path.addOval(Rect.fromCenter(
+            center: Offset(size.width / 2, size.height - d * 0.5),
+            width: d,
+            height: d,
+          ));
           break;
         case 8:
           if (lcd[8] == 0) break;

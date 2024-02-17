@@ -16,7 +16,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  var n = 'N';
+  var n = ' ';
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _MainAppState extends State<MainApp> {
             height: 70,
             child: LedDigits(
               string: n,
-              numberOfLeds: 11,
+              numberOfLeds: 13,
               spacing: 5,
             ),
           ),
