@@ -6,7 +6,7 @@ issue_tracker: https://github.com/alnitak/flutter_lcd_led/issues
 repository: https://github.com/alnitak/flutter_lcd_led
 
 screenshots:
-  - description: "LCD LEDs"
+  - description: "7-segment LEDs"
     path: images/screenshot.png
 
 environment:
