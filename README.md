@@ -4,15 +4,15 @@
 Emulates a 7 LEDs display (well, with colon and dot also!).
 
 ## Features
-![Screenshot](https://github.com/alnitak/flutter_lcd_led/blob/master/img/leds.gif?raw=true "LCD LEDs Demo")
+![Screenshot](https://github.com/alnitak/flutter_lcd_led/raw/master/images/leds.gif?raw=true "LCD LEDs Demo")
 
-- display numbers, dot, colon and minus chars
+- display numbers, dots, colon, and minus chars
 - customizable colors
 
 ## Usage
 
 ##### case 1 (fixed overall size)
-Give to `LedDigits` widget a fixed size.
+Give the `LedDigits` widget a fixed size.
 If the `numberOfLeds` > `string`.length, the widget will align the digits to the right.
 
 ```dart
