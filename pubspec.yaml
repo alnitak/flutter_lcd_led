@@ -4,6 +4,10 @@ version: 1.0.0
 homepage: https://github.com/alnitak/flutter_lcd_led
 issue_tracker: https://github.com/alnitak/flutter_lcd_led/issues
 repository: https://github.com/alnitak/flutter_lcd_led
+topics:
+  - lcd
+  - led
+  - display
 
 screenshots:
   - description: "7-segment LEDs"
