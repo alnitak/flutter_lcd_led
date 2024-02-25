@@ -4,7 +4,7 @@
 Emulates a 7 LEDs display (well, with colon and dot also!).
 
 ## Features
-![Screenshot](https://github.com/alnitak/flutter_lcd_led/raw/master/images/leds.gif?raw=true "LCD LEDs Demo")
+![Screenshot](https://github.com/alnitak/flutter_lcd_led/raw/main/images/leds.gif?raw=true "LCD LEDs Demo")
 
 - display numbers, dots, colon, and minus chars
 - customizable colors
