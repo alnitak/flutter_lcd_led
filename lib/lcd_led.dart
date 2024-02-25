@@ -16,16 +16,23 @@ class LedDigits extends StatelessWidget {
     this.onColor = Colors.red,
   });
 
+  /// The string with supported chars: [0-9], colon, dot.
+  /// Any other chars are treated as space (all LEDs off)
   final String string;
 
+  /// The number of LEDs to display
   final int numberOfLeds;
 
+  /// The spacing between LEDs
   final double spacing;
 
+  /// The color of background
   final Color backgroundColor;
 
+  /// The LED color when it is turned off
   final Color offColor;
 
+  /// The LED color when it is turned on
   final Color onColor;
 
   List<Widget> getDigits(BoxConstraints constraints) {
@@ -75,7 +82,6 @@ class LedDigits extends StatelessWidget {
 ///
 class _LedDigit extends StatefulWidget {
   const _LedDigit({
-    super.key,
     required this.digit,
     this.backgroundColor = Colors.black,
     this.offColor = const Color.fromARGB(255, 49, 49, 49),

@@ -1,7 +1,13 @@
 name: lcd_led
 description: "LCD LED"
 version: 1.0.0
-homepage:
+homepage: https://github.com/alnitak/flutter_lcd_led
+issue_tracker: https://github.com/alnitak/flutter_lcd_led/issues
+repository: https://github.com/alnitak/flutter_lcd_led
+
+screenshots:
+  - description: "LCD LEDs"
+    path: images/screenshot.png
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
