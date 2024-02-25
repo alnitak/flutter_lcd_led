@@ -11,7 +11,7 @@ Emulates a 7 LEDs display (well, with colon and dot also!).
 
 ## Usage
 
-##### case 1 (fixed overall size)
+##### Case 1 (fixed overall size)
 Give the `LedDigits` widget a fixed size.
 If the `numberOfLeds` > `string`.length, the widget will align the digits to the right.
 
@@ -30,7 +30,7 @@ SizedBox(
 )
 ```
 
-##### case 2 (fixed height)
+##### Case 2 (fixed height)
 If you want a fixed height and a dynamic width, use something like the below code:
 
 ```dart
