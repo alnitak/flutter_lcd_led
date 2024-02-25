@@ -16,11 +16,14 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  /// The string with supported chars to give 
+  /// to the `LedDigits` `string` parameter
   var n = ' ';
 
   @override
   void initState() {
     super.initState();
+    /// Update the `string` parameter ever 1/10 of a second
     Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (context.mounted) {
         setState(() {
