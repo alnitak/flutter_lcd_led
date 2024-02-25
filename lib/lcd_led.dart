@@ -40,7 +40,7 @@ class LedDigits extends StatelessWidget {
         SizedBox(
           width: w,
           height: constraints.maxHeight,
-          child: LedDigit(
+          child: _LedDigit(
             digit: numberString[i],
             backgroundColor: backgroundColor,
             offColor: offColor,
@@ -73,8 +73,8 @@ class LedDigits extends StatelessWidget {
 
 /// Class to defines a single digit
 ///
-class LedDigit extends StatefulWidget {
-  const LedDigit({
+class _LedDigit extends StatefulWidget {
+  const _LedDigit({
     super.key,
     required this.digit,
     this.backgroundColor = Colors.black,
@@ -91,10 +91,10 @@ class LedDigit extends StatefulWidget {
   final Color onColor;
 
   @override
-  State<LedDigit> createState() => _LedDigitState();
+  State<_LedDigit> createState() => _LedDigitState();
 }
 
-class _LedDigitState extends State<LedDigit>
+class _LedDigitState extends State<_LedDigit>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Uint8List lcd;
@@ -120,7 +120,7 @@ class _LedDigitState extends State<LedDigit>
   }
 
   @override
-  void didUpdateWidget(covariant LedDigit oldWidget) {
+  void didUpdateWidget(covariant _LedDigit oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.digit != widget.digit) {
       controller.forward(from: 0);
@@ -139,7 +139,7 @@ class _LedDigitState extends State<LedDigit>
     //    |    |
     //     ---- °7
     //       6
-    switch (widget.digit) {
+    switch (widget.digit[0]) {
       case '0': ///////////////// 0  1  2  3  4  5  6  7  8
         lcd = Uint8List.fromList([1, 1, 1, 0, 1, 1, 1, 0, 0]);
       case '1':
@@ -166,7 +166,8 @@ class _LedDigitState extends State<LedDigit>
         lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 1, 0]);
       case ':':
         lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 1]);
-      case ' ':
+      default:
+
         /// all LEDs off
         lcd = Uint8List.fromList([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }

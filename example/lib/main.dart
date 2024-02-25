@@ -25,7 +25,7 @@ class _MainAppState extends State<MainApp> {
       if (context.mounted) {
         setState(() {
           var now = DateTime.now();
-          n = '-${DateFormat('kk:mm:ss').format(now)}.${now.millisecond~/100}';
+          n = '-${DateFormat('kk:mm:ss').format(now)}.${now.millisecond ~/ 100}';
         });
       }
     });
@@ -38,13 +38,23 @@ class _MainAppState extends State<MainApp> {
       themeMode: ThemeMode.dark,
       home: Scaffold(
         body: Center(
+          // child: SizedBox(
+          //   width: 500,
+          //   height: 70,
+          //   child: LedDigits(
+          //     string: n,
+          //     numberOfLeds: 12,
+          //     spacing: 5,
+          //   ),
+          // ),
           child: SizedBox(
-            width: 500,
             height: 70,
-            child: LedDigits(
-              string: n,
-              numberOfLeds: 13,
-              spacing: 5,
+            child: AspectRatio(
+              aspectRatio: n.length.toDouble() / 1.5,
+              child: LedDigits(
+                string: n,
+                numberOfLeds: n.length,
+              ),
             ),
           ),
         ),

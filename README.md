@@ -1,39 +1,47 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# LCD LED
+[![Pub](https://img.shields.io/pub/v/lcd_led.svg)](https://pub.dev/packages/lcd_led)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Emulates a 7 LEDs display (well, with colon and dot also!).
 
 ## Features
+![Screenshot](https://github.com/alnitak/flutter_lcd_led/blob/master/img/leds.gif?raw=true "LCD LEDs Demo")
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- display numbers, dot, colon and minus chars
+- customizable colors
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+##### case 1 (fixed overall size)
+Give to `LedDigits` widget a fixed size.
+If the `numberOfLeds` > `string`.length, the widget will align the digits to the right.
 
 ```dart
-const like = 'sample';
+SizedBox(
+    width: 500,
+    height: 70,
+    child: LedDigits(
+        string: '-12.3:',
+        numberOfLeds: 6,
+        spacing: 5,
+        backgroundColor: Colors.black, // default value
+        onColor: Colors.red, // default value
+        offColor: Color.fromARGB(255, 49, 49, 49), // default value
+    ),
+)
 ```
 
-## Additional information
+##### case 2 (fixed height)
+If you want a fixed height and a dynamic width, use something like the below code:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+SizedBox(
+    height: 70,
+    child: AspectRatio(
+        aspectRatio: n.length.toDouble()/1.5, // the LEDs width will be half the `SizedBox` height
+        child: LedDigits(
+        string: n,
+        numberOfLeds: n.length,
+    ),
+)
+```
+
