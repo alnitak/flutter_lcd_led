@@ -1,5 +1,5 @@
 name: lcd_led
-description: "Display digits, commas, dots as on a LCD LED display."
+description: "Experience the nostalgic charm of a 7-segment LED display with accurate rendering of digits, commas, and dots."
 version: 1.0.0
 homepage: https://github.com/alnitak/flutter_lcd_led
 issue_tracker: https://github.com/alnitak/flutter_lcd_led/issues
