@@ -87,7 +87,7 @@ class _LedDigit extends StatefulWidget {
     this.offColor = const Color.fromARGB(255, 49, 49, 49),
     this.onColor = Colors.red,
   });
-  
+
   /// The string with supported char
   /// Any other chars are treated as space (all LEDs off)
   final String digit;
