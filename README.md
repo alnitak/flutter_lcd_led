@@ -1,7 +1,7 @@
 # LCD LED
 [![Pub](https://img.shields.io/pub/v/lcd_led.svg)](https://pub.dev/packages/lcd_led)
 
-Emulates a 7 LEDs display (well, with colon and dot also!).
+A nostalgic charm of a 7-segment LED display with accurate rendering of digits, commas, and dots.
 
 ## Features
 ![Screenshot](https://github.com/alnitak/flutter_lcd_led/raw/main/images/leds.gif?raw=true "LCD LEDs Demo")
